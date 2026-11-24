@@ -8,7 +8,7 @@ A mobile-responsive league website with historical scorecards, teams, player lea
 - Node.js and Express API
 - SQLite database seeded from the included Season 1 import
 
-The application source is in [`MPL-Website/mpl-website`](MPL-Website/mpl-website). The original scorecard PDFs, downloaded ZIP archives, local SQLite databases, backups, and registration records are excluded from Git. A new deployment creates its database from the checked-in seed JSON.
+The application source is in [`MPL-Website/mpl-website`](MPL-Website/mpl-website). This source commit excludes the local scorecard PDFs, SQLite databases, backups, registration records, and redesign ZIPs from the workspace. The GitHub repository already contained `MPL-Website.zip`; the merge preserves that existing archive. A new deployment creates its database from the checked-in seed JSON.
 
 ## Run locally
 
