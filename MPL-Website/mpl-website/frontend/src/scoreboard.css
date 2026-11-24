@@ -29,7 +29,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .brand-word { color: #fff; font-size: 17px; }
 .brand-word b { color: var(--mpl-acid); }
 .main-nav { gap: clamp(8px, 1.15vw, 18px); }
-.nav-link { padding: 27px 0; color: #c7d6cf; font-size: 9px; letter-spacing: .075em; }
+.nav-link { padding: 27px 0; color: #cbd5e1; font-size: 9px; letter-spacing: .075em; }
 .nav-link::after { bottom: 15px; background: var(--mpl-acid); }
 .nav-link:hover, .nav-link.is-active { color: #fff; }
 .header-cta { border: 1px solid var(--mpl-acid); background: var(--mpl-acid); color: #101c35; padding: 11px 14px; font-size: 9px; }
@@ -74,7 +74,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .home-result-card__teams > div > span { width: 34px; height: 34px; display: grid; place-items: center; color: #101c35; background: var(--mpl-acid); font: 900 11px var(--heading); }
 .home-result-card__teams strong { min-height: 29px; color: #e5eaf2; font-size: 11px; line-height: 1.35; }
 .home-result-card__teams b { color: white; font: 900 clamp(21px, 2.4vw, 29px)/1 var(--heading); font-variant-numeric: tabular-nums; }
-.home-result-card__versus { color: #a9c0b1; font-size: 8px; font-weight: 900; text-align: center; }
+.home-result-card__versus { color: #aebbd0; font-size: 8px; font-weight: 900; text-align: center; }
 .home-result-card > p { margin: 16px 0 4px; color: var(--mpl-acid); font-size: 11px; font-weight: 700; line-height: 1.45; }
 .home-result-card > small { color: #c0c9d7; font-size: 9px; }
 .home-result-card > button { display: flex; align-items: center; gap: 7px; margin-top: 17px; padding: 0; border: 0; background: none; color: #fff; font-size: 8px; font-weight: 900; letter-spacing: .11em; cursor: pointer; }
@@ -222,7 +222,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .format-switch .switch-icon { color: #88651e; }
 .format-switch button.is-selected .switch-icon { color: var(--mpl-acid); }
 .season-select-label,.leaderboard-season { color: #607068; }
-.season-select-label select,.leaderboard-season select { color: #20382e; border-color: #d0d9d2; background: #fbfcfa; }
+.season-select-label select,.leaderboard-season select { color: #101c35; border-color: #d5dde7; background: #f8fafc; }
 .match-card,.team-card,.player-card { border-color: #e2e8f0; background: #fff; box-shadow: none; }
 .match-meta { color: #64748b; }
 .match-state--completed { color: #475569; }
@@ -277,7 +277,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .format-pills button { color: #52637b; }
 .format-pills button.is-selected { color: #fff; background: #101c35; }
 .leaderboard-updated { color: #64748b; }
-.leaderboard-updated svg { color: #526b53; }
+.leaderboard-updated svg { color: #88651e; }
 .metric-tabs { background: white; }
 .metric-tab { min-height: 52px; border-color: #dce3ec; color: #52637b; background: #fff; }
 .metric-tab.is-selected { border-color: #101c35; color: #fff; background: #101c35; }
@@ -288,11 +288,11 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .leaderboard-feature p { margin: 0; color: #c5cedb; font-size: 10px; }
 .leaderboard-feature__value { position: relative; z-index: 1; grid-column: 2; grid-row: 1 / span 3; align-self: center; color: var(--mpl-acid); font: 900 clamp(40px,5vw,62px)/.9 var(--heading); white-space: nowrap; }
 .leaderboard-feature__value small { font: 800 10px var(--body); }
-.leaderboard-table-head { color: #718078; background: #edf2ee; }
-.leaderboard-row { border-color: #e6ebe6; }
-.leader-player strong { color: #243c31; }
-.leader-player small,.leader-team { color: #6f7c74; }
-.leader-rank { color: #8b978f; }
+.leaderboard-table-head { color: #64748b; background: #eef1f5; }
+.leaderboard-row { border-color: #e2e8f0; }
+.leader-player strong { color: #101c35; }
+.leader-player small,.leader-team { color: #64748b; }
+.leader-rank { color: #94a3b8; }
 .leader-value { color: #101c35; }
 .leaderboard-foot { color: #64748b; border-top-color: #e2e8f0; background: #f6f7f9; }
 .leaderboard-foot svg { color: #88651e; }
@@ -302,7 +302,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 .jersey-heading .section-heading h1,.jersey-heading .section-heading h2 { color: #101c35; }
 .edition-tag { color: #52637b; border-color: #cbd5e1; background: white; }
 .jersey-layout { border: 1px solid #d2dbe7; background: white; box-shadow: none; }
-.jersey-stage-wrap { border-color: #244534; }
+.jersey-stage-wrap { border-color: #263a5a; }
 .jersey-detail { color: #111827; background: #fff; }
 .jersey-detail h3 { color: #101c35; }
 .jersey-detail__desc,.jersey-colour > span:first-child { color: #64748b; }
@@ -399,7 +399,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
 @media (max-width: 1080px) {
   .site-header { height: 68px; }
   .header-inner { width: calc(100% - 36px); }
-  .main-nav { display: none; position: absolute; top: 68px; left: 0; right: 0; max-height: calc(100vh - 68px); overflow-y: auto; padding: 8px 22px 18px; background: #123f32; border-top: 1px solid rgba(255,255,255,.14); flex-direction: column; align-items: stretch; gap: 0; }
+  .main-nav { display: none; position: absolute; top: 68px; left: 0; right: 0; max-height: calc(100vh - 68px); overflow-y: auto; padding: 8px 22px 18px; background: #101c35; border-top: 1px solid rgba(255,255,255,.14); flex-direction: column; align-items: stretch; gap: 0; }
   .main-nav--open { display: flex; }
   .nav-link { padding: 13px 5px; text-align: left; border-bottom: 1px solid rgba(255,255,255,.1); font-size: 10px; }
   .nav-link::after { display: none; }
@@ -449,7 +449,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .console-sidebar { display: flex; overflow-x: auto; gap: 4px; padding: 9px; }
   .console-sidebar__label,.console-sidebar__note { display: none; }
   .console-tab { flex: 0 0 auto; width: auto; min-height: 42px; border-left: 0; border-bottom: 2px solid transparent; white-space: nowrap; }
-  .console-tab.is-selected { border-left: 0; border-bottom-color: #d95436; }
+  .console-tab.is-selected { border-left: 0; border-bottom-color: #d9ad50; }
   .console-tab svg:last-child { display: none; }
   .console-content { padding: 17px; }
   .roster-page { padding-top: 30px; }
@@ -458,7 +458,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible
   .roster-team-filter select { flex: 1; }
   .leaderboard-feature { margin: 11px; padding: 16px; }
   .jersey-layout { grid-template-columns: 1fr; }
-  .jersey-stage-wrap { border-right: 0; border-bottom: 1px solid #244534; }
+  .jersey-stage-wrap { border-right: 0; border-bottom: 1px solid #263a5a; }
   .jersey-heading { display: block; }
   .edition-tag { display: inline-flex; margin: 0 0 16px; }
   .registration-top { gap: 20px; padding: 26px; }

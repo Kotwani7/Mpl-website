@@ -164,7 +164,7 @@ function MobileNavigation({ page, onNavigate }) {
   }, [moreOpen]);
 
   return <>
-    {moreOpen && <div className="mobile-more-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMoreOpen(false); }}>
+    {moreOpen && <div className="mobile-more-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) setMoreOpen(false); }}>
       <nav id="mobile-more-menu" className="mobile-more-menu" aria-label="More MPL sections">
         <div className="mobile-more-menu__heading"><strong>MORE FROM MPL</strong><button type="button" aria-label="Close more menu" onClick={() => setMoreOpen(false)}><X size={18} /></button></div>
         <div className="mobile-more-menu__links">{moreLinks.map((item) => <button key={item.id} type="button" onClick={() => goTo(item.path)} aria-current={page === item.id ? 'page' : undefined}>{item.label}<ArrowUpRight size={15} /></button>)}</div>
