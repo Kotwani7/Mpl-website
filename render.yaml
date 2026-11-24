@@ -2,24 +2,18 @@ services:
   - type: web
     name: mpl-website
     runtime: node
-    plan: starter
+    plan: free
     region: singapore
     rootDir: MPL-Website/mpl-website
     buildCommand: npm ci && npm run build
     startCommand: npm start
     healthCheckPath: /api/health
-    disk:
-      name: mpl-data
-      mountPath: /var/data
-      sizeGB: 1
     envVars:
       - key: NODE_VERSION
         value: 24.22.1
       - key: NODE_ENV
         value: production
       - key: MPL_DATA_DIR
-        value: /var/data
+        value: /tmp/mpl-data
       - key: MPL_UPLOADS_DIR
-        value: /var/data/uploads
-      - key: ADMIN_API_KEY
-        generateValue: true
+        value: /tmp/mpl-uploads

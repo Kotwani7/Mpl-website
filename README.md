@@ -25,9 +25,9 @@ Open `http://localhost:5173`. The Vite development server proxies API calls to t
 
 ## Deploy
 
-The repository includes [`render.yaml`](render.yaml) for a single Render web service. It builds the frontend, serves it and the API from one HTTPS address, and stores SQLite data and uploaded jersey artwork on a persistent disk in Singapore. The database is seeded on first launch. The Blueprint uses Render's Starter web service and a 1 GB persistent disk; Render's current pricing lists these at $7/month plus $0.25/month for the disk, before any usage-based charges or taxes. Persistent disks require a paid web service.
+The repository includes [`render.yaml`](render.yaml) for one free Render web service in Singapore. It builds the frontend and serves it with the API from one HTTPS address. The Free service sleeps after 15 minutes without traffic; the next request can take about a minute to load. It has no persistent disk, so SQLite records and uploaded jersey images reset after a restart, spin-down, or deploy. Use this setup as a public preview, not for keeping live registrations, auction changes, or uploaded artwork. Render also limits free web services to 750 instance hours per workspace per month.
 
-The initial production database keeps player registration closed. This avoids collecting contact details until the league is ready to publish its privacy and contact information. The organiser key is generated and stored by Render; it is never committed to this repository. Configure any additional service secrets in Render's dashboard.
+The initial production database keeps player registration closed. This avoids collecting contact details until the league is ready to publish its privacy and contact information. Organiser actions stay disabled until you add a private `ADMIN_API_KEY` in Render's dashboard; never commit that key to GitHub. For durable records and uploads, switch to paid hosting with persistent storage.
 
 ## Project documentation
 
