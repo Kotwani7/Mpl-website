@@ -1,8 +1,8 @@
 import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import {
-  Archive, ArrowRight, ArrowUpRight, Award, CalendarDays, ChevronDown, ChevronLeft,
-  ChevronRight, CircleDot, Instagram, Menu, Shield, Trophy, Users, Youtube, X,
-  Zap, Target, Activity, MapPin, Clock3, Medal, BarChart3, Sparkles, Shirt, Gavel, UserPlus
+  Activity, Archive, ArrowRight, ArrowUpRight, Award, BarChart3, CalendarDays, ChevronDown, ChevronLeft,
+  ChevronRight, CircleDot, Clock3, Gavel, Home as HomeIcon, Instagram, MapPin, Medal, Menu, Shield,
+  Sparkles, Shirt, Target, Trophy, UserPlus, Users, X, Youtube, Zap
 } from 'lucide-react';
 import SectionHeading from './components/SectionHeading';
 import SponsorCarousel from './components/SponsorCarousel';
@@ -115,6 +115,71 @@ function Header({ page, onNavigate }) {
   </header>;
 }
 
+function newestFirst(matches = []) {
+  return [...matches].sort((a, b) => {
+    const timeA = new Date(`${a.date || '2000-01-01'}T${a.time || '00:00'}:00`).getTime() || 0;
+    const timeB = new Date(`${b.date || '2000-01-01'}T${b.time || '00:00'}:00`).getTime() || 0;
+    return timeB - timeA || Number(b.matchNo || 0) - Number(a.matchNo || 0);
+  });
+}
+
+function MatchTicker({ matches = [], onNavigate }) {
+  const recentMatches = useMemo(() => newestFirst(matches).slice(0, 6), [matches]);
+  if (!recentMatches.length) return null;
+  return <section className="match-ticker" aria-label="Recent MPL match scores">
+    <div className="match-ticker__label"><span className="match-ticker__mark"><CircleDot size={15} /></span><span><strong>MATCH CENTRE</strong><small>SEASON 1 ARCHIVE</small></span></div>
+    <div className="match-ticker__track">{recentMatches.map((match) => {
+      const resultPage = match.type === 'ground' ? '/ground' : '/turf';
+      const status = match.status === 'completed' ? 'RESULT' : match.status === 'live' ? 'LIVE' : 'FIXTURE';
+      return <button className="match-ticker__match" key={match.id} type="button" onClick={() => onNavigate(resultPage)} aria-label={`View ${match.teamA?.name || 'Team A'} versus ${match.teamB?.name || 'Team B'} ${status.toLowerCase()}`}>
+        <span className={`match-ticker__status match-ticker__status--${match.status || 'scheduled'}`}>{status}</span>
+        <span className="match-ticker__side"><b>{match.teamA?.shortName || 'TBA'}</b><strong>{match.scoreA || '—'}</strong></span>
+        <span className="match-ticker__versus">v</span>
+        <span className="match-ticker__side"><b>{match.teamB?.shortName || 'TBA'}</b><strong>{match.scoreB || '—'}</strong></span>
+        <small>{match.date || 'Date TBA'}</small>
+      </button>;
+    })}</div>
+    <button className="match-ticker__all" type="button" onClick={() => onNavigate('/turf')}>ALL SCORES <ArrowRight size={14} /></button>
+  </section>;
+}
+
+function MobileNavigation({ page, onNavigate }) {
+  const [moreOpen, setMoreOpen] = useState(false);
+  const quickLinks = [
+    { id: 'home', label: 'Home', path: '/', icon: HomeIcon },
+    { id: 'matches', label: 'Matches', path: '/turf', icon: CalendarDays },
+    { id: 'auction', label: 'Auction', path: '/auction', icon: Gavel },
+    { id: 'stats', label: 'Stats', path: '/leaderboards', icon: BarChart3 }
+  ];
+  const moreLinks = navItems.filter((item) => !['home', 'turf', 'auction', 'leaderboards'].includes(item.id));
+  const matchesActive = ['ground', 'turf'].includes(page);
+  const moreActive = !['home', 'ground', 'turf', 'auction', 'leaderboards'].includes(page);
+  const goTo = (path) => { setMoreOpen(false); onNavigate(path); };
+
+  useEffect(() => {
+    if (!moreOpen) return undefined;
+    const closeOnEscape = (event) => { if (event.key === 'Escape') setMoreOpen(false); };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [moreOpen]);
+
+  return <>
+    {moreOpen && <div className="mobile-more-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMoreOpen(false); }}>
+      <nav id="mobile-more-menu" className="mobile-more-menu" aria-label="More MPL sections">
+        <div className="mobile-more-menu__heading"><strong>MORE FROM MPL</strong><button type="button" aria-label="Close more menu" onClick={() => setMoreOpen(false)}><X size={18} /></button></div>
+        <div className="mobile-more-menu__links">{moreLinks.map((item) => <button key={item.id} type="button" onClick={() => goTo(item.path)} aria-current={page === item.id ? 'page' : undefined}>{item.label}<ArrowUpRight size={15} /></button>)}</div>
+      </nav>
+    </div>}
+    <nav className="mobile-bottom-nav" aria-label="Quick navigation">
+      {quickLinks.map(({ id, label, path, icon: Icon }) => {
+        const active = id === 'matches' ? matchesActive : id === 'stats' ? page === 'leaderboards' : page === id;
+        return <button key={id} type="button" className={active ? 'is-active' : ''} aria-current={active ? 'page' : undefined} onClick={() => goTo(path)}><Icon size={19} strokeWidth={1.9} /><span>{label}</span></button>;
+      })}
+      <button type="button" className={moreOpen || moreActive ? 'is-active' : ''} aria-expanded={moreOpen} aria-controls="mobile-more-menu" onClick={() => setMoreOpen((value) => !value)}><Menu size={19} strokeWidth={1.9} /><span>More</span></button>
+    </nav>
+  </>;
+}
+
 function TournamentCards({ tournaments = [], onNavigate, registrationOpen = true }) {
   const ground = tournaments.find((t) => t.type === 'ground');
   const turf = tournaments.find((t) => t.type === 'turf');
@@ -143,11 +208,7 @@ const homeDestinations = [
 ];
 
 function HomePage({ data, health, onNavigate }) {
-  const archiveMatch = useMemo(() => [...data.matches].filter((match) => match.status === 'completed').sort((a, b) => {
-    const timeA = new Date(`${a.date || '2000-01-01'}T${a.time || '00:00'}:00`).getTime() || 0;
-    const timeB = new Date(`${b.date || '2000-01-01'}T${b.time || '00:00'}:00`).getTime() || 0;
-    return timeB - timeA || Number(b.matchNo || 0) - Number(a.matchNo || 0);
-  })[0] || null, [data.matches]);
+  const archiveMatch = useMemo(() => newestFirst(data.matches).find((match) => match.status === 'completed') || null, [data.matches]);
   const followLink = (event, path) => {
     if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
@@ -185,6 +246,7 @@ function HomePage({ data, health, onNavigate }) {
         <button type="button" onClick={() => onNavigate('/turf')}>OPEN TURF RESULTS <ArrowUpRight size={14} /></button>
       </aside>
     </section>
+    <HomeRecords players={data.players} teams={data.teams} standings={data.standings} onNavigate={onNavigate} />
     <section className="home-shortcuts section-shell" aria-labelledby="home-shortcuts-title">
       <div className="home-shortcuts__heading"><span className="eyebrow">THE LEAGUE, AT A GLANCE</span><h2 id="home-shortcuts-title">Pick your <em>next stop.</em></h2></div>
       <nav className="home-shortcuts__grid" aria-label="Explore MPL pages">{homeDestinations.map(({ path, number, title, description, label, icon: Icon, art }) => <a key={path} className={`home-shortcut home-shortcut--${art}`} href={path} onClick={(event) => followLink(event, path)}>
@@ -194,6 +256,43 @@ function HomePage({ data, health, onNavigate }) {
     </section>
     <div className="home-partners"><SponsorCarousel sponsors={data.sponsors} /></div>
   </div>;
+}
+
+function HomeRecords({ players = [], teams = [], standings = [], onNavigate }) {
+  const teamById = new Map(teams.map((team) => [team.id, team]));
+  const leadingRunScorer = [...players].filter((player) => Number(player.runs) > 0).sort((a, b) => Number(b.runs) - Number(a.runs) || a.name.localeCompare(b.name))[0];
+  const leadingWicketTaker = [...players].filter((player) => Number(player.wickets) > 0).sort((a, b) => Number(b.wickets) - Number(a.wickets) || a.name.localeCompare(b.name))[0];
+  const table = standings.slice(0, 5);
+  if (!leadingRunScorer && !leadingWicketTaker && !table.length) return null;
+
+  const renderLeader = (player, label, value, unit) => {
+    if (!player) return null;
+    const team = teamById.get(player.teamId);
+    const initials = player.name.split(' ').map((part) => part[0]).join('').slice(0, 2);
+    return <article className="home-record-leader" key={label}>
+      <span className="home-record-leader__category">{label}</span>
+      {player.profileImage ? <img className="home-record-leader__portrait" src={player.profileImage} alt="" loading="lazy" /> : <span className="home-record-leader__initials" aria-hidden="true">{initials}</span>}
+      <span className="home-record-leader__identity"><strong>{player.name}</strong><small>{team?.name || 'MPL player'} · {player.role || 'Player'}</small></span>
+      <span className="home-record-leader__value">{Number(value).toLocaleString('en-IN')}<small>{unit}</small></span>
+    </article>;
+  };
+
+  return <section className="home-records section-shell" aria-labelledby="home-records-title">
+    <header className="home-records__heading"><div><span className="eyebrow">SEASON 1 · SCORECARD ARCHIVE</span><h2 id="home-records-title">Numbers that <em>tell the season.</em></h2></div><button type="button" onClick={() => onNavigate('/leaderboards')}>FULL LEADERBOARDS <ArrowUpRight size={15} /></button></header>
+    <div className="home-records__layout">
+      <section className="home-records__leaders" aria-label="Season leaders">
+        {renderLeader(leadingRunScorer, 'MOST RUNS', leadingRunScorer?.runs, 'RUNS')}
+        {renderLeader(leadingWicketTaker, 'MOST WICKETS', leadingWicketTaker?.wickets, 'WKTS')}
+      </section>
+      {table.length > 0 && <section className="home-records__table" aria-labelledby="home-table-title">
+        <div className="home-records__table-heading"><div><span className="eyebrow">TURF · SEASON 1</span><h3 id="home-table-title">Archive table</h3></div><button type="button" onClick={() => onNavigate('/turf')} aria-label="Open the Turf standings"><ArrowUpRight size={16} /></button></div>
+        <div className="home-records__table-wrap"><table><thead><tr><th scope="col">TEAM</th><th scope="col">P</th><th scope="col">W</th><th scope="col">PTS</th></tr></thead><tbody>
+          {table.map((team, index) => <tr key={team.id}><td><span className="home-records__rank">{String(index + 1).padStart(2, '0')}</span><strong>{team.name}</strong></td><td>{team.played ?? 0}</td><td>{team.won ?? 0}</td><td><strong>{team.points ?? 0}</strong></td></tr>)}
+        </tbody></table></div>
+        <p>Points calculated from imported scorecards. See Turf for full results.</p>
+      </section>}
+    </div>
+  </section>;
 }
 
 function MatchCard({ match }) {
@@ -483,6 +582,7 @@ export default function App() {
   }, []);
   return <>
     <Header page={page} onNavigate={navigate} />
+    <MatchTicker matches={data.matches} onNavigate={navigate} />
     <DatabaseConnectionStatus connection={connection} health={health} onRetry={retry} />
     <main className={`site-page site-page--${page}`}>
       {page === 'home' ? <HomePage data={data} health={health} onNavigate={navigate} /> : <>
@@ -497,6 +597,7 @@ export default function App() {
         <Footer site={data.site} onNavigate={navigate} />
       </>}
     </main>
+    <MobileNavigation page={page} onNavigate={navigate} />
     {error && <div className="api-notice" role="status"><span className="api-notice__dot" /> API connection issue: {error} <small>Start the backend to load live league data.</small></div>}
     {showTop && <button className="back-to-top" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} aria-label="Back to top"><ChevronLeft size={18} /></button>}
   </>;

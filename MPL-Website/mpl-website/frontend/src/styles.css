@@ -1,5 +1,5 @@
 :root {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'Inter', sans-serif;
   color: #f5f1e8;
   background: #0a0907;
   font-synthesis: none;
@@ -14,7 +14,7 @@
   --gold-dark: #9c6b10;
   --white: #f8f4eb;
   --heading: 'Barlow Condensed', Impact, sans-serif;
-  --body: 'DM Sans', Arial, sans-serif;
+  --body: 'Inter', Arial, sans-serif;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 92px; }
