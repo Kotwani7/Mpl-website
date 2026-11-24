@@ -1,0 +1,38 @@
+[
+  {
+    "id": "demo-sponsor-title",
+    "name": "SAMPLE TITLE PARTNER",
+    "tag": "Temporary sponsor preview · Replace with an official partner",
+    "tier": "DEMO / TITLE",
+    "initials": "SP",
+    "color": "#d9a21b",
+    "imageUrl": "/assets/sponsors/demo-title-partner.svg",
+    "linkUrl": "",
+    "slideKind": "logo",
+    "active": true
+  },
+  {
+    "id": "demo-sponsor-kit",
+    "name": "SAMPLE KIT PARTNER",
+    "tag": "Temporary sponsor preview · Replace with an official partner",
+    "tier": "DEMO / KIT",
+    "initials": "SK",
+    "color": "#c49335",
+    "imageUrl": "/assets/sponsors/demo-kit-partner.svg",
+    "linkUrl": "",
+    "slideKind": "logo",
+    "active": true
+  },
+  {
+    "id": "demo-sponsor-banner",
+    "name": "SAMPLE MATCHDAY PROMOTION",
+    "tag": "Temporary campaign artwork · Replace with an official promotion",
+    "tier": "DEMO / BANNER",
+    "initials": "MPL",
+    "color": "#d9a21b",
+    "imageUrl": "/assets/sponsors/demo-matchday-banner.svg",
+    "linkUrl": "",
+    "slideKind": "banner",
+    "active": true
+  }
+]

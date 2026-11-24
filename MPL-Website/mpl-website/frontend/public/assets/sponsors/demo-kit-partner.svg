@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-labelledby="title desc">
+  <title id="title">Sample MPL kit partner</title>
+  <desc id="desc">Temporary black and gold placeholder artwork</desc>
+  <defs><linearGradient id="g" x2="1"><stop stop-color="#11100d"/><stop offset=".55" stop-color="#201b12"/><stop offset="1" stop-color="#10100e"/></linearGradient></defs>
+  <rect width="640" height="320" rx="22" fill="url(#g)"/><path d="M0 250 210 40h80L80 320H0zm350 70L600 40h40v70L430 320z" fill="#d9a21b" fill-opacity=".1"/><rect x="16" y="16" width="608" height="288" rx="16" fill="none" stroke="#d5ae50" stroke-opacity=".45" stroke-width="2"/>
+  <path d="M135 84 197 112v55c0 46-29 72-62 88-33-16-62-42-62-88v-55z" fill="#15120e" stroke="#e5c36a" stroke-width="4"/><path d="m100 166 23 24 47-56" fill="none" stroke="#e5c36a" stroke-linecap="round" stroke-linejoin="round" stroke-width="10"/>
+  <text x="248" y="143" fill="#f2e4c5" font-family="Arial,sans-serif" font-size="31" font-weight="700" letter-spacing="3">SAMPLE KIT</text><text x="248" y="188" fill="#d8b75f" font-family="Arial,sans-serif" font-size="19" letter-spacing="5">PARTNER PREVIEW</text><text x="248" y="242" fill="#8c8068" font-family="Arial,sans-serif" font-size="14" letter-spacing="3">TEMPORARY ARTWORK</text>
+</svg>

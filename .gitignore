@@ -1,0 +1,5 @@
+# Local project archives and source scorecards are kept outside the hosted app.
+MPL-Website-redesign-*.zip
+mpl scorecard/
+tmp/
+

@@ -1,0 +1,20 @@
+{
+  "name": "mahakal-premier-league",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=22.16.0" },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev -w backend\" \"npm run dev -w frontend\"",
+    "build": "npm run build -w frontend",
+    "start": "npm run start -w backend",
+    "db:check": "npm run db:check -w backend",
+    "db:backup": "npm run db:backup -w backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
